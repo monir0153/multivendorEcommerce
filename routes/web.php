@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +31,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'AdminDashboard']);
+})->middleware(['auth','role:admin']);
+
+Route::prefix('vendor')->group(function () {
+    Route::get('dashboard', [VendorController::class, 'VendorDashboard']);
+})->middleware(['auth','role:vendor']);
