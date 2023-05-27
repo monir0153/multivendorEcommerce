@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -40,12 +41,41 @@ class AdminController extends Controller
         $data->address    = $request->address;
         if($request->file('image')){
             $file       = $request->file('image');
+            @unlink(public_path('upload/admin_image/'.$data->image));
             $filename   = date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('upload/admin_image'),$filename);
+            $file->move(public_path('upload/admin_image/'),$filename);
             $data['image'] = $filename;
         }
         $data->save();
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Admin Profile updated successfully',
+            'alert-type' => 'success',
+        );
+        return redirect()->back()->with($notification);
 
+    }
+    public function AdminChangePassword(){
+        return view('admin.change_password');
+    }
+    public function AdminUpdatePassword(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'current_password' => 'required|current_password',
+            'password' => 'required|confirmed|min:6',
+        ],['current_password' => 'The old password is incorrect']
+    );
+
+        // User::whereId(Auth::ser()->id)->update([
+        //     'password' => Hash::make($request->password)
+        // ]);
+
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->back()->with([
+            'message' => 'Password updated successfully',
+            'alert-type' => 'success',
+        ]);
     }
 }

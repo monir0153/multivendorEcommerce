@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::prefix('admin')->group(function () {
     Route::get('logout', [AdminController::class, 'AdminDestroy']);
     Route::get('profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
     Route::post('profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
+    Route::get('change_password', [AdminController::class, 'AdminChangePassword'])->name('admin.change_password');
+    Route::post('update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
 })->middleware(['auth','role:admin']);
 
 //========Vendor Dashboard========
