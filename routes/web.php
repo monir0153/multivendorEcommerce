@@ -32,10 +32,13 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+//========Admin Dashboard========
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'AdminDashboard']);
-})->middleware(['auth','role:admin']);
+    Route::get('logout', [AdminController::class, 'AdminDestroy']);
+});
 
+//========Vendor Dashboard========
 Route::prefix('vendor')->group(function () {
     Route::get('dashboard', [VendorController::class, 'VendorDashboard']);
 })->middleware(['auth','role:vendor']);
