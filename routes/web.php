@@ -37,7 +37,8 @@ Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'AdminDashboard']);
     Route::get('logout', [AdminController::class, 'AdminDestroy']);
     Route::get('profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
-});
+    Route::post('profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
+})->middleware(['auth','role:admin']);
 
 //========Vendor Dashboard========
 Route::prefix('vendor')->group(function () {
