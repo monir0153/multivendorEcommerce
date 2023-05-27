@@ -36,6 +36,7 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'AdminDashboard']);
     Route::get('logout', [AdminController::class, 'AdminDestroy']);
+    Route::get('profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
 });
 
 //========Vendor Dashboard========
