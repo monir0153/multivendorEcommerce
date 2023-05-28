@@ -47,4 +47,9 @@ Route::prefix('admin')->group(function () {
 //========Vendor Dashboard========
 Route::prefix('vendor')->group(function () {
     Route::get('dashboard', [VendorController::class, 'VendorDashboard']);
+    Route::get('logout', [VendorController::class, 'VendorDestroy']);
+    Route::get('profile', [VendorController::class, 'VendorProfile'])->name('vendor.profile');
+    Route::post('profile/store', [VendorController::class, 'VendorProfileStore'])->name('vendor.profile.store');
+    Route::get('change_password', [VendorController::class, 'VendorChangePassword'])->name('vendor.change_password');
+    Route::post('update/password', [VendorController::class, 'VendorUpdatePassword'])->name('vendor.update.password');
 })->middleware(['auth','role:vendor']);
