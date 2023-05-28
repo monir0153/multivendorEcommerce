@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 class VendorController extends Controller
@@ -44,6 +45,8 @@ class VendorController extends Controller
         $data->email      = $request->email;
         $data->phone      = $request->phone;
         $data->address    = $request->address;
+        $data->vendor_description = $request->vendor_description;
+        $data->created_at = Carbon::now();
         if($request->file('image')){
             $file       = $request->file('image');
             @unlink(public_path('upload/vendor_image/'.$data->image));

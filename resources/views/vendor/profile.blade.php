@@ -1,5 +1,8 @@
 @extends('vendor.dashboard')
 @section('vendor')
+@php
+    use Carbon\Carbon;
+@endphp
 <div class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -88,6 +91,22 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" name="address" class="form-control" value="{{$user->address}}" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Join Date</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="{{Carbon::parse($user->created_at)->format('Y/m/d') }}"  />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Description</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea class="form-control" name="vendor_description" id="" rows="3">{{$user->vendor_description}}</textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
