@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    //     $this->middleware('role:admin');
+    // }
+    public function AdminLogin()
     {
-        $this->middleware('auth');
-        $this->middleware('role:admin');
+        return view('admin.admin_login');
     }
     public function AdminDashboard()
     {
@@ -28,7 +32,7 @@ class AdminController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('admin/login');
     }
     public function AdminProfile()
     {
@@ -70,7 +74,7 @@ class AdminController extends Controller
         ],['current_password' => 'The old password is incorrect']
     );
 
-        // User::whereId(Auth::ser()->id)->update([
+        // User::whereId(Auth::user()->id)->update([
         //     'password' => Hash::make($request->password)
         // ]);
 

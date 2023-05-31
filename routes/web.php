@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Role;
@@ -22,9 +23,13 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth','verified')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'UserDashboard'])->name('dashboard');
+});
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,6 +41,7 @@ require __DIR__.'/auth.php';
 
 //========Admin Dashboard========
 Route::prefix('admin')->group(function () {
+    Route::get('login', [AdminController::class, 'AdminLogin']);
     Route::get('dashboard', [AdminController::class, 'AdminDashboard']);
     Route::get('logout', [AdminController::class, 'AdminDestroy']);
     Route::get('profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
@@ -46,6 +52,8 @@ Route::prefix('admin')->group(function () {
 
 //========Vendor Dashboard========
 Route::prefix('vendor')->group(function () {
+    Route::get('register',[VendorController::class, 'VendorRegister']);
+    Route::get('login', [VendorController::class, 'VendorLogin']);
     Route::get('dashboard', [VendorController::class, 'VendorDashboard']);
     Route::get('logout', [VendorController::class, 'VendorDestroy']);
     Route::get('profile', [VendorController::class, 'VendorProfile'])->name('vendor.profile');

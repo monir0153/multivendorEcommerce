@@ -12,10 +12,18 @@ use Illuminate\Support\Facades\Redirect;
 
 class VendorController extends Controller
 {
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    //     $this->middleware('role:vendor');
+    // }
+    public function VendorRegister()
     {
-        $this->middleware('auth');
-        $this->middleware('role:vendor');
+        return view('vendor.vendor_register');
+    }
+    public function VendorLogin()
+    {
+        return view('vendor.vendor_login');
     }
     public function VendorDashboard()
     {
@@ -29,7 +37,7 @@ class VendorController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('vendor/login');
     }
     public function VendorProfile()
     {
