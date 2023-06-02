@@ -23,8 +23,11 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
-Route::middleware('auth','verified')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'UserDashboard'])->name('dashboard');
+    Route::post('user/store', [UserController::class, 'UserStore'])->name('user.store');
+    Route::get('user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
+    Route::post('user/change-password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
 });
 
 // Route::get('/dashboard', function () {
@@ -40,7 +43,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //========Admin Dashboard========
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::get('login', [AdminController::class, 'AdminLogin']);
     Route::get('dashboard', [AdminController::class, 'AdminDashboard']);
     Route::get('logout', [AdminController::class, 'AdminDestroy']);
@@ -48,10 +51,10 @@ Route::prefix('admin')->group(function () {
     Route::post('profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('change_password', [AdminController::class, 'AdminChangePassword'])->name('admin.change_password');
     Route::post('update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
-})->middleware('auth','role:admin');
+});
 
 //========Vendor Dashboard========
-Route::prefix('vendor')->group(function () {
+Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {
     Route::get('register',[VendorController::class, 'VendorRegister']);
     Route::get('login', [VendorController::class, 'VendorLogin']);
     Route::get('dashboard', [VendorController::class, 'VendorDashboard']);
@@ -60,4 +63,4 @@ Route::prefix('vendor')->group(function () {
     Route::post('profile/store', [VendorController::class, 'VendorProfileStore'])->name('vendor.profile.store');
     Route::get('change_password', [VendorController::class, 'VendorChangePassword'])->name('vendor.change_password');
     Route::post('update/password', [VendorController::class, 'VendorUpdatePassword'])->name('vendor.update.password');
-})->middleware(['auth','role:vendor']);
+});
