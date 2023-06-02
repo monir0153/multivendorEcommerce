@@ -12,6 +12,8 @@
 	<link href="{{asset('admin/assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
 	<link href="{{asset('admin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
 	<link href="{{asset('admin/assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
+    {{-- Datatable --}}
+	<link href="{{asset('admin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />
 	<!-- loader-->
 	<link href="{{asset('admin/assets/css/pace.min.css')}}" rel="stylesheet" />
 	<script src="{{asset('admin/assets/js/pace.min.js')}}"></script>
@@ -67,6 +69,26 @@
 	<script src="{{asset('admin/assets/plugins/sparkline-charts/jquery.sparkline.min.js')}}"></script>
 	<script src="{{asset('admin/assets/plugins/jquery-knob/excanvas.js')}}"></script>
 	<script src="{{asset('admin/assets/plugins/jquery-knob/jquery.knob.js')}}"></script>
+    {{-- datatable --}}
+
+	<script src="{{asset('admin/assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{asset('admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
+    <script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		  } );
+	</script>
+    <script>
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: true,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
+	</script>
     <script>
         $(function() {
             $(".knob").knob();

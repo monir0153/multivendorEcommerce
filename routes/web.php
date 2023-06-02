@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\Backend\BrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\Authenticate;
@@ -44,7 +45,6 @@ require __DIR__.'/auth.php';
 
 //========Admin Dashboard========
 Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
-    Route::get('login', [AdminController::class, 'AdminLogin']);
     Route::get('dashboard', [AdminController::class, 'AdminDashboard']);
     Route::get('logout', [AdminController::class, 'AdminDestroy']);
     Route::get('profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
@@ -55,8 +55,7 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
 
 //========Vendor Dashboard========
 Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {
-    Route::get('register',[VendorController::class, 'VendorRegister']);
-    Route::get('login', [VendorController::class, 'VendorLogin']);
+
     Route::get('dashboard', [VendorController::class, 'VendorDashboard']);
     Route::get('logout', [VendorController::class, 'VendorDestroy']);
     Route::get('profile', [VendorController::class, 'VendorProfile'])->name('vendor.profile');
@@ -64,3 +63,13 @@ Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {
     Route::get('change_password', [VendorController::class, 'VendorChangePassword'])->name('vendor.change_password');
     Route::post('update/password', [VendorController::class, 'VendorUpdatePassword'])->name('vendor.update.password');
 });
+
+    Route::get('admin/login', [AdminController::class, 'AdminLogin']);
+
+    Route::get('vendor/login', [VendorController::class, 'VendorLogin']);
+    Route::get('vendor/register',[VendorController::class, 'VendorRegister']);
+
+    Route::controller(BrandController::class)->middleware(['auth','role:admin'])->group(function (){
+        Route::get('all/brand','AllBrand')->name('all.brand');
+        Route::get('add/brand','AddBrand')->name('add.brand');
+    });

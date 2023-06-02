@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class VendorController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    //     $this->middleware('role:vendor');
-    // }
     public function VendorRegister()
     {
         return view('vendor.vendor_register');
