@@ -52,7 +52,12 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::get('change_password', [AdminController::class, 'AdminChangePassword'])->name('admin.change_password');
     Route::post('update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
 });
+Route::get('admin/login', [AdminController::class, 'AdminLogin']);
 
+Route::controller(BrandController::class)->middleware(['auth','role:admin'])->group(function (){
+    Route::get('all/brand','AllBrand')->name('all.brand');
+    Route::get('add/brand','AddBrand')->name('add.brand');
+});
 //========Vendor Dashboard========
 Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {
 
@@ -64,12 +69,5 @@ Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {
     Route::post('update/password', [VendorController::class, 'VendorUpdatePassword'])->name('vendor.update.password');
 });
 
-    Route::get('admin/login', [AdminController::class, 'AdminLogin']);
-
     Route::get('vendor/login', [VendorController::class, 'VendorLogin']);
     Route::get('vendor/register',[VendorController::class, 'VendorRegister']);
-
-    Route::controller(BrandController::class)->middleware(['auth','role:admin'])->group(function (){
-        Route::get('all/brand','AllBrand')->name('all.brand');
-        Route::get('add/brand','AddBrand')->name('add.brand');
-    });

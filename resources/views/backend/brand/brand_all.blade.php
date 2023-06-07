@@ -14,7 +14,7 @@
             </nav>
         </div>
         <div class="ms-auto">
-                <a href="" class="btn btn-primary">Add Brand</a>
+                <a href="{{route('add.brand')}}" class="btn btn-primary">Add Brand</a>
         </div>
     </div>
 
