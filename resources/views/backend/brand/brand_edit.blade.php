@@ -20,22 +20,23 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                    <form id="myForm" action="{{route('store.brand')}}" method="POST" enctype="multipart/form-data">
+                    <form  action="{{route('update.brand')}}" method="POST" enctype="multipart/form-data">
                         @csrf
-
+                        <input type="hidden" name="id" value="{{$brand->id}}">
+                        <input type="hidden" name="old_image" value="{{$brand->brand_image}}">
                         <div class="row mb-3">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Brand Name</h6>
                             </div>
-                            <div class="form-group col-sm-9 text-secondary">
-                                <input type="text" name="brand_name" class="form-control" />
+                            <div class=" col-sm-9 text-secondary">
+                                <input type="text" name="brand_name" class="form-control" value="{{$brand->brand_name}}"/>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Brand Image</h6>
                             </div>
-                            <div class="form-group col-sm-9 text-secondary">
+                            <div class=" col-sm-9 text-secondary">
                                 <input type="file" class="form-control" name="brand_image" id="image"/>
                             </div>
                         </div>
@@ -44,8 +45,8 @@
                                 <h6 class="mb-0">Existed or select Image</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                {{-- <img id="showImage" src="{{!empty($user->image) ? url('upload/admin_image/'.$user->image) : url('upload/no_image.jpg')}}" alt="" width="150px"> --}}
-                                <img id="showImage" src="{{url('upload/no_image.jpg')}}" alt="" width="150px">
+
+                                <img id="showImage" src="{{asset($brand->brand_image)}}" alt="" width="150px">
                             </div>
                         </div>
                         <div class="row">
@@ -63,40 +64,7 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function (){
-        $('#myForm').validate({
-            rules: {
-                brand_name: {
-                    required : true,
-                },
-                brand_image: {
-                    required : true,
-                }
-            },
-            messages :{
-                brand_name: {
-                    required : 'Please Enter Brand Name',
-                },
-                brand_image: {
-                    required : 'Please Enter Brand Image',
-                }
-            },
-            errorElement : 'span',
-            errorPlacement: function (error,element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight : function(element, errorClass, validClass){
-                $(element).addClass('is-invalid');
-            },
-            unhighlight : function(element, errorClass, validClass){
-                $(element).removeClass('is-invalid');
-            },
-        });
-    });
 
-</script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('#image').change(function(e){
