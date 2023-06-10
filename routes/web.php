@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\Authenticate;
@@ -53,7 +54,7 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::post('update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
 });
 Route::get('admin/login', [AdminController::class, 'AdminLogin']);
-
+    // Brand section
 Route::middleware(['auth','role:admin'])->controller(BrandController::class)->group(function (){
     Route::get('all/brand','AllBrand')->name('all.brand');
     Route::get('add/brand','AddBrand')->name('add.brand');
@@ -61,6 +62,15 @@ Route::middleware(['auth','role:admin'])->controller(BrandController::class)->gr
     Route::get('edit/brand/{id}','EditBrand')->name('edit.brand');
     Route::post('update/brand','UpdateBrand')->name('update.brand');
     Route::get('delete/brand/{id}','DeleteBrand')->name('delete.brand');
+});
+    // Category section
+Route::middleware(['auth','role:admin'])->controller(CategoryController::class)->group(function (){
+    Route::get('all/category','AllCategory')->name('all.category');
+    Route::get('add/category','AddCategory')->name('add.category');
+    Route::post('store/category','StoreCategory')->name('store.category');
+    Route::get('edit/category/{id}','EditCategory')->name('edit.category');
+    Route::post('update/category','UpdateCategory')->name('update.category');
+    Route::get('delete/category/{id}','DeleteCatgory')->name('delete.category');
 });
 //========Vendor Dashboard========
 Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {

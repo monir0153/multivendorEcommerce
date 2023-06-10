@@ -26,7 +26,7 @@ class BrandController extends Controller
     {
         $images = $request->file('brand_image');
         $name_gen = hexdec(uniqid()).'.'.$images->getClientOriginalExtension();
-        Image::make($images)->resize(512,300)->save('upload/brand/'.$name_gen);
+        Image::make($images)->resize(300,300)->save('upload/brand/'.$name_gen);
         $save_url = 'upload/brand/'.$name_gen;
 
         Brand::insert([
@@ -56,7 +56,7 @@ class BrandController extends Controller
         {
             $images = $request->file('brand_image');
             $name_gen = hexdec(uniqid()).'.'.$images->getClientOriginalExtension();
-            Image::make($images)->resize(512,300)->save('upload/brand/'.$name_gen);
+            Image::make($images)->resize(300,300)->save('upload/brand/'.$name_gen);
             $save_url = 'upload/brand/'.$name_gen;
 
             if(file_exists($old_image)){
