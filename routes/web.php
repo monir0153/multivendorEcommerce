@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\Authenticate;
@@ -71,6 +72,15 @@ Route::middleware(['auth','role:admin'])->controller(CategoryController::class)-
     Route::get('edit/category/{id}','EditCategory')->name('edit.category');
     Route::post('update/category','UpdateCategory')->name('update.category');
     Route::get('delete/category/{id}','DeleteCatgory')->name('delete.category');
+});
+    // Sub Category section
+Route::middleware(['auth','role:admin'])->controller(SubCategoryController::class)->group(function (){
+    Route::get('all/subcategory','AllSubCategory')->name('all.subcategory');
+    Route::get('add/subcategory','AddSubCategory')->name('add.subcategory');
+    Route::post('store/subcategory','StoreSubCategory')->name('store.subcategory');
+    Route::get('edit/subcategory/{id}','EditSubCategory')->name('edit.subcategory');
+    Route::post('update/subcategory/{id}','UpdateSubCategory')->name('update.subcategory');
+    Route::get('delete/subcategory/{id}','DeleteSubCatgory')->name('delete.subcategory');
 });
 //========Vendor Dashboard========
 Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {

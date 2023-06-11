@@ -9,12 +9,12 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Category Table</li>
+                    <li class="breadcrumb-item active" aria-current="page">SubCategory Table</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
-                <a href="{{route('add.category')}}" class="btn btn-primary">Add Catgory</a>
+                <a href="{{route('add.subcategory')}}" class="btn btn-primary">Add SubCatgory</a>
         </div>
     </div>
 
@@ -26,21 +26,21 @@
                         <tr>
                             <th>SL</th>
                             <th>Category Name</th>
-                            <th>Category Image</th>
+                            <th>SubCategory Name</th>
                             <th>Action</th>
 
                         </tr>
                     </thead>
                     <tbody>
 
-                       @foreach ($categories as $key => $item)
+                       @foreach ($subcategories as $key => $item)
                        <tr>
                             <td>{{$key++}}</td>
-                            <td>{{$item->category_name}}</td>
-                            <td><img src="{{asset($item->category_image)}}" alt="brand image" width="60px"></td>
+                            <td>{{$item->category->category_name}}</td>
+                            <td>{{$item->subcategory_name}}</td>
                             <td>
-                                <a href="{{route('edit.category',$item->id)}}" class="btn btn-info">Edit</a>
-                                <a href="{{route('delete.category',$item->id)}}" id="delete" class="btn btn-danger">Delete</a>
+                                <a href="{{route('edit.subcategory',$item->id)}}" class="btn btn-info">Edit</a>
+                                <a href="{{route('delete.subcategory',$item->id)}}" id="delete" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                        @endforeach
@@ -49,7 +49,7 @@
                         <tr>
                             <th>SL</th>
                             <th>Category Name</th>
-                            <th>Category Image</th>
+                            <th>SubCategory Image</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
