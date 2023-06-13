@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -47,6 +48,7 @@ class AdminController extends Controller
         $data->email      = $request->email;
         $data->phone      = $request->phone;
         $data->address    = $request->address;
+        $data->updated_at = Carbon::now();
         if($request->file('image')){
             $file       = $request->file('image');
             @unlink(public_path('upload/admin_image/'.$data->image));
@@ -85,5 +87,21 @@ class AdminController extends Controller
             'message' => 'Password updated successfully',
             'alert-type' => 'success',
         ]);
+    }
+
+    public function InactiveVendor()
+    {
+        $inactivevendor = User::where('role', 'vendor')->where('status', 'inactive')->latest()->get();
+        return view('backend.vendor.inactive_vendor',compact('inactivevendor'));
+    }
+    public function ActiveVendor()
+    {
+        $activevendor = User::where('role', 'vendor')->where('status', 'active')->latest()->get();
+        return view('backend.vendor.active_vendor',compact('activevendor'));
+    }
+    public function InactiveVendorDetails($id)
+    {
+        $vendoruser = User::findorFail($id);
+        return view('backend.vendor.inactive_vendor_details',compact('vendoruser'));
     }
 }

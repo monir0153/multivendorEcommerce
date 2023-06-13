@@ -9,12 +9,40 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class VendorController extends Controller
 {
-    public function VendorRegister()
+    public function BecomeVendor(): View
     {
-        return view('vendor.vendor_register');
+        return View('auth.become_vendor');
+    }
+    public function VendorRegister(Request $request)
+    {
+        $validated = $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string','max:255', 'unique:'.User::class],
+            'phone' => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            'role' => 'vendor',
+            'status' => 'inactive',
+            'created_at' => Carbon::now()
+        ]);
+
+        return redirect()->route('vendor.login')->with([
+            'message' => 'Vendor Registered successfully',
+            'alert-type' => 'success',
+        ]);
+
     }
     public function VendorLogin()
     {

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -31,6 +32,7 @@ class UserController extends Controller
         $data->email      = $request->email;
         $data->phone      = $request->phone;
         $data->address    = $request->address;
+        $data->updated_at = Carbon::now();
         if($request->file('image')){
             $file       = $request->file('image');
             @unlink(public_path('upload/user_image/'.$data->image));

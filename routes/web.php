@@ -54,7 +54,16 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::get('change_password', [AdminController::class, 'AdminChangePassword'])->name('admin.change_password');
     Route::post('update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
 });
+
 Route::get('admin/login', [AdminController::class, 'AdminLogin']);
+
+// ==========Vendor Mangements =========
+Route::middleware(['auth','role:admin'])->controller(AdminController::class)->group(function (){
+    Route::get('active/vendor','ActiveVendor')->name('active.vendor');
+    Route::get('active/vendor/details/{id}','ActiveVendorDetails')->name('active.vendor.details');
+    Route::get('inactive/vendor','InactiveVendor')->name('inactive.vendor');
+    Route::get('inactive/vendor/details/{id}','InactiveVendorDetails')->name('inactive.vendor.details');
+});
     // Brand section
 Route::middleware(['auth','role:admin'])->controller(BrandController::class)->group(function (){
     Route::get('all/brand','AllBrand')->name('all.brand');
@@ -82,6 +91,10 @@ Route::middleware(['auth','role:admin'])->controller(SubCategoryController::clas
     Route::post('update/subcategory/{id}','UpdateSubCategory')->name('update.subcategory');
     Route::get('delete/subcategory/{id}','DeleteSubCatgory')->name('delete.subcategory');
 });
+//========Vendor Login Register========
+Route::get('vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
+Route::get('become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
+Route::post('vendor/register', [VendorController::class, 'VendorRegister'])->name('vendor.register');
 //========Vendor Dashboard========
 Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {
 
@@ -93,5 +106,3 @@ Route::prefix('vendor')->middleware(['auth','role:vendor'])->group(function () {
     Route::post('update/password', [VendorController::class, 'VendorUpdatePassword'])->name('vendor.update.password');
 });
 
-    Route::get('vendor/login', [VendorController::class, 'VendorLogin']);
-    Route::get('vendor/register',[VendorController::class, 'VendorRegister']);
