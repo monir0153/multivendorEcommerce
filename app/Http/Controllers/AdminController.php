@@ -104,4 +104,31 @@ class AdminController extends Controller
         $vendoruser = User::findorFail($id);
         return view('backend.vendor.inactive_vendor_details',compact('vendoruser'));
     }
+    public function InactiveVendorApprove(Request $request, $id)
+    {
+        User::findorFail($id)->update([
+            'status' => 'active',
+        ]);
+
+        return redirect()->route('active.vendor')->with([
+            'message' => 'Vendor Actived Successfuly',
+            'alert-type' => 'success',
+        ]);
+    }
+    public function ActiveVendorDetails($id)
+    {
+        $vendoruser = User::findorFail($id);
+        return view('backend.vendor.active_vendor_details',compact('vendoruser'));
+    }
+    public function ActiveVendorDeactive(Request $request,$id)
+    {
+        User::findorFail($id)->update([
+            'status' => 'inactive',
+        ]);
+
+        return redirect()->route('inactive.vendor')->with([
+            'message' => 'Vendor Deactived Successfuly',
+            'alert-type' => 'success',
+        ]);
+    }
 }

@@ -24,7 +24,7 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                        <form action="{{route('inactive.vendor.approve',$vendoruser->id)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('active.vendor.deactive',$vendoruser->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
@@ -94,7 +94,7 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <button type="submit" class="btn btn-danger px-4">Active Vendor</button>
+                                    <button type="submit" class="btn btn-danger px-4">Deactive Vendor</button>
                                 </div>
                             </div>
                         </form>

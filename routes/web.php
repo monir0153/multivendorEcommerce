@@ -61,8 +61,11 @@ Route::get('admin/login', [AdminController::class, 'AdminLogin']);
 Route::middleware(['auth','role:admin'])->controller(AdminController::class)->group(function (){
     Route::get('active/vendor','ActiveVendor')->name('active.vendor');
     Route::get('active/vendor/details/{id}','ActiveVendorDetails')->name('active.vendor.details');
+    Route::post('active/vendor/deactive/{id}','ActiveVendorDeactive')->name('active.vendor.deactive');
+
     Route::get('inactive/vendor','InactiveVendor')->name('inactive.vendor');
     Route::get('inactive/vendor/details/{id}','InactiveVendorDetails')->name('inactive.vendor.details');
+    Route::post('inactive/vendor/approve/{id}','InactiveVendorApprove')->name('inactive.vendor.approve');
 });
     // Brand section
 Route::middleware(['auth','role:admin'])->controller(BrandController::class)->group(function (){
