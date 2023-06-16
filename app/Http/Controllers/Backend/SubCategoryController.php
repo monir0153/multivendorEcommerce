@@ -64,4 +64,9 @@ class SubCategoryController extends Controller
             'alert-type' => 'success',
         ]);
     }
+    public function GetSubCatgory($category_id)
+    {
+        $subcat = SubCategory::where('category_id', $category_id)->orderby('subcategory_name', 'asc')->get();
+        return json_encode($subcat);
+    }
 }

@@ -62,40 +62,6 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function (){
-        $('#myForm').validate({
-            rules: {
-                category_name: {
-                    required : true,
-                },
-                category_image: {
-                    required : true,
-                }
-            },
-            messages :{
-                category_name: {
-                    required : 'Please Enter Category Name',
-                },
-                category_image: {
-                    required : 'Please Enter Category Image',
-                }
-            },
-            errorElement : 'span',
-            errorPlacement: function (error,element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight : function(element, errorClass, validClass){
-                $(element).addClass('is-invalid');
-            },
-            unhighlight : function(element, errorClass, validClass){
-                $(element).removeClass('is-invalid');
-            },
-        });
-    });
-
-</script>
-<script type="text/javascript">
     $(document).ready(function(){
         $('#image').change(function(e){
             const reader = new FileReader();

@@ -8,6 +8,7 @@
 	<!--favicon-->
 	<link rel="icon" href="{{asset('admin/assets/images/favicon-32x32.png')}}" type="image/png" />
 	<!--plugins-->
+    <link href="{{asset('admin/assets/plugins/input-tags/css/tagsinput.css')}}" rel="stylesheet" />
 	<link href="{{asset('admin/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet"/>
 	<link href="{{asset('admin/assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
 	<link href="{{asset('admin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
@@ -66,11 +67,20 @@
 	<script src="{{asset('admin/assets/plugins/sparkline-charts/jquery.sparkline.min.js')}}"></script>
 	<script src="{{asset('admin/assets/plugins/jquery-knob/excanvas.js')}}"></script>
 	<script src="{{asset('admin/assets/plugins/jquery-knob/jquery.knob.js')}}"></script>
+
+    <script src="{{asset('admin/assets/plugins/input-tags/js/tagsinput.js')}}"></script>
     {{-- Toaster  --}}
     <script>
         $(function() {
             $(".knob").knob();
         });
+        </script>
+        <script src='https://cdn.tiny.cloud/1/vdqx2klew412up5bcbpwivg1th6nrh3murc6maz8bukgos4v/tinymce/5/tinymce.min.js' referrerpolicy="origin">
+        </script>
+        <script>
+            tinymce.init({
+              selector: '#mytextarea'
+            });
         </script>
 	  <script src="{{asset('admin/assets/js/index.js')}}"></script>
       <!--app JS-->
