@@ -1,5 +1,6 @@
 @extends('admin.dashboard')
 @section('admin')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <div class="page-content">
 
     <!--breadcrumb-->
@@ -22,11 +23,13 @@
       <div class="card-body p-4">
           <h5 class="card-title">Add New Product</h5>
           <hr>
+          <form action="{{route('store.product')}}" id="myForm" method="POST" enctype="multipart/form-data">
+            @csrf
            <div class="form-body mt-4">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="border border-3 p-4 rounded">
-                        <div class="mb-3">
+                        <div class="form-group mb-3">
                             <label for="inputProductTitle" class="form-label">Product name</label>
                             <input type="text" class="form-control" name="product_name" placeholder="Enter product name">
                         </div>
@@ -42,7 +45,7 @@
                             <label class="form-label">Product Color</label>
                             <input type="text" name="product_color" class="form-control visually-hidden" data-role="tagsinput" value="red,green,black">
                         </div>
-                        <div class="mb-3">
+                        <div class="form-group mb-3">
                             <label for="inputProductDescription" class="form-label">Short Description</label>
                             <textarea class="form-control" name="short_description" rows="3"></textarea>
                         </div>
@@ -50,7 +53,7 @@
                             <label for="inputProductDescription" class="form-label">Long Description</label>
                             <textarea class="form-control" id="mytextarea" name="long_description" rows="3"></textarea>
                           </div>
-                          <div class="mb-3">
+                          <div class="form-group mb-3">
                             <label for="inputProductDescription" class="form-label">Product Thumbnail</label>
                             <input class="form-control" name="product_thumbnail" type="file" id="formFile" onchange="mainThumUrl(this)">
                             <img src="" class="pt-3 pb-3" id="mainThumb" width="200px">
@@ -65,7 +68,7 @@
                <div class="col-lg-4">
                 <div class="border border-3 p-4 rounded">
                   <div class="row g-3">
-                    <div class="col-md-6">
+                    <div class="form-group col-md-6">
                         <label for="inputPrice" class="form-label">Product Price</label>
                         <input type="text" class="form-control" name="selling_price" placeholder="00.00">
                       </div>
@@ -73,44 +76,44 @@
                         <label for="inputCompareatprice" class="form-label">Discount Price</label>
                         <input type="text" class="form-control" name="discount_price" placeholder="00.00">
                       </div>
-                      <div class="col-md-6">
+                      <div class="form-group col-md-6">
                         <label for="inputCostPerPrice" class="form-label">Product Code</label>
                         <input type="text" class="form-control" name="product_code" >
                       </div>
-                      <div class="col-md-6">
+                      <div class="form-group col-md-6">
                         <label for="inputStarPoints" class="form-label">Product Qunatity</label>
                         <input type="text" class="form-control" name="product_qty" placeholder="1,2,3">
                       </div>
-                      <div class="col-12">
+                      <div class="form-group col-12">
                         <label for="inputProductType" class="form-label">Product Brand</label>
-                        <select class="form-select" name="brand_id" id="inputProductType">
-                            <option>Select Brand</option>
+                        <select class="form-select" name="brand_id">
+                            <option></option>
                             @foreach ($brands as $brand)
                             <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
                             @endforeach
 
                           </select>
                       </div>
-                      <div class="col-12">
+                      <div class="form-group col-12">
                         <label for="inputVendor" class="form-label">Product Category</label>
-                        <select class="form-select" name="category_id" id="inputVendor">
-                            <option>Select Catgory</option>
+                        <select class="form-select" name="category_id" >
+                            <option></option>
                             @foreach ($categories as $category)
                             <option value="{{$category->id}}">{{$category->category_name}}</option>
                             @endforeach
                           </select>
                       </div>
-                      <div class="col-12">
+                      <div class="form-group col-12">
                         <label for="inputCollection" class="form-label">Product Subcategory</label>
-                        <select class="form-select" name="subcategory_id" id="inputCollection">
-                            <option>Select SubCategory</option>
+                        <select class="form-select" name="subcategory_id" >
+                            <option></option>
 
                           </select>
                       </div>
                       <div class="col-12">
                         <label for="inputCollection" class="form-label">Select Vendor</label>
-                        <select class="form-select" name="vendor_id" id="inputCollection">
-                            <option>Select Vendor</option>
+                        <select class="form-select" name="vendor_id" >
+                            <option></option>
                             @foreach ($activevendor as $vendor)
                             <option value="{{$vendor->id}}">{{$vendor->name}}</option>
                             @endforeach
@@ -148,7 +151,7 @@
                         </div>
                       <div class="col-12">
                           <div class="d-grid">
-                             <button type="button" class="btn btn-primary">Save Product</button>
+                             <button type="submit" class="btn btn-primary">Save Product</button>
                           </div>
                       </div>
                     </div>
@@ -156,11 +159,94 @@
               </div>
            </div><!--end row-->
         </div>
+        </form>
       </div>
   </div>
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        $('#myForm').validate({
+            rules: {
+                product_name: {
+                    required : true,
+                },
+                short_description: {
+                    required : true,
+                },
+                product_thumbnail: {
+                    required : true,
+                },
+                multi_images: {
+                    required : true,
+                },
+                selling_price: {
+                    required : true,
+                },
+                product_code: {
+                    required : true,
+                },
+                product_qty: {
+                    required : true,
+                },
+                brand_id: {
+                    required : true,
+                },
+                category_id: {
+                    required : true,
+                },
+                subcategory_id: {
+                    required : true,
+                },
+            },
+            messages :{
+                product_name: {
+                    required : 'Please Enter Product Name',
+                },
+                short_description: {
+                    required : 'Please Enter Short Description',
+                },
+                product_thumbnail: {
+                    required : 'Please Enter Product Thumbnail',
+                },
+                multi_images: {
+                    required : 'Please Enter Product Thumbnail',
+                },
+                selling_price: {
+                    required : 'Please Enter Product Price',
+                },
+                product_code: {
+                    required : 'Please Enter Product Code',
+                },
+                product_qty: {
+                    required : 'Please Enter Product Quantity',
+                },
+                brand_id: {
+                    required : 'Please Enter Brand Name',
+                },
+                category_id: {
+                    required : 'Please Enter Category Name',
+                },
+                subcategory_id: {
+                    required : 'Please Enter SubCategory Name',
+                },
+            },
+            errorElement : 'span',
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+
+</script>
 <script type="text/javascript">
   function mainThumUrl(input) {
     if(input.files && input.files[0]){
@@ -180,7 +266,7 @@
             var data = $(this)[0].files; //this file data
 
             $.each(data, function(index, file){ //loop though each file
-                if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
+                if(/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file.type)){ //check supported file type
                     var fRead = new FileReader(); //new filereader
                     fRead.onload = (function(file){ //trigger function on successful read
                     return function(e) {
