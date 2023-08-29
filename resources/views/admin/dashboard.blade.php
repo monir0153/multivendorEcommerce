@@ -73,6 +73,8 @@
 	<script src="{{asset('admin/assets/plugins/jquery-knob/jquery.knob.js')}}"></script>
 
     <script src="{{asset('admin/assets/plugins/input-tags/js/tagsinput.js')}}"></script>
+    {{-- Font Awesome --}}
+    <script src="https://kit.fontawesome.com/15ecf9366f.js" crossorigin="anonymous"></script>
     {{-- datatable --}}
 
 	<script src="{{asset('admin/assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
