@@ -100,8 +100,10 @@ Route::middleware(['auth','role:admin'])->controller(ProductController::class)->
     Route::get('all/product','AllProduct')->name('all.product');
     Route::get('add/product','AddProduct')->name('add.product');
     Route::post('store/product','StoreProduct')->name('store.product');
-    // Route::get('edit/subcategory/{id}','EditSubCategory')->name('edit.subcategory');
-    // Route::post('update/subcategory/{id}','UpdateSubCategory')->name('update.subcategory');
+    Route::get('edit/product/{id}','EditProduct')->name('edit.product');
+    Route::post('update/product/{id}','UpdateProduct')->name('update.product');
+    Route::post('update/product/multiimage/{id}','UpdateProductMultiImage')->name('update.product.multiimage');
+    Route::get('product/multiimage/delete/{id}','ProductMultiImageDelete')->name('product.multiimage.delete');
     // Route::get('delete/subcategory/{id}','DeleteSubCatgory')->name('delete.subcategory');
 });
 //========Vendor Login Register========

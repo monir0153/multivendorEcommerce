@@ -9,12 +9,12 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">All Product </li>
+                    <li class="breadcrumb-item active" aria-current="page">All Product <span class="badge rounded-pill bg-success">{{count($products)}}</span> </li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
-                <a href="{{route('add.category')}}" class="btn btn-primary">Add Product</a>
+                <a href="{{route('add.product')}}" class="btn btn-primary">Add Product</a>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
                             <th>Price</th>
                             <th>Qty</th>
                             <th>Image</th>
-                            <th>Discount</th>
+                            <th>Discount amount</th>
                             <th>status</th>
                             <th>Action</th>
 
@@ -48,10 +48,11 @@
                                 <span class="badge rounded-pill bg-danger">No Discount</span>
                                 @else
                                 @php
-                                    $amount = $item->discount_price / $item->selling_price;
-                                    $discount = $amount * 100;
+                                    $amount = $item->discount_price / 100;
+                                    $discount = $amount * $item->selling_price;
+                                    $total_price = $item->selling_price - $discount;
                                 @endphp
-                                <span class="badge rounded-pill bg-success">{{round($discount)}}%</span>
+                                <span class="badge rounded-pill bg-success">{{round($discount)}}</span>
                                 @endif
                             </td>
                             <td>
@@ -62,7 +63,7 @@
                                 @endif
                              </td>
                             <td>
-                                <a href="{{route('edit.category',$item->id)}}" title="Edit" class="btn btn-info"><i class="fa-solid fa-pencil"></i></a>
+                                <a href="{{route('edit.product',$item->id)}}" title="Edit" class="btn btn-info"><i class="fa-solid fa-pencil"></i></a>
                                 <a href="{{route('delete.category',$item->id)}}" title="Delete" id="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                 <a href="{{route('edit.category',$item->id)}}" title="Edit" class="btn btn-warning"><i class="fa-solid fa-eye"></i></a>
                                 @if ($item->status == 1)
@@ -81,7 +82,7 @@
                             <th>Price</th>
                             <th>Qty</th>
                             <th>Image</th>
-                            <th>Discount</th>
+                            <th>Discount Amount</th>
                             <th>status</th>
                             <th>Action</th>
                         </tr>
