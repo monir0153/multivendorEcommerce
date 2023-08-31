@@ -64,12 +64,12 @@
                              </td>
                             <td>
                                 <a href="{{route('edit.product',$item->id)}}" title="Edit" class="btn btn-info"><i class="fa-solid fa-pencil"></i></a>
-                                <a href="{{route('delete.category',$item->id)}}" title="Delete" id="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                <a href="{{route('product.delete',$item->id)}}" title="Delete" id="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                 <a href="{{route('edit.category',$item->id)}}" title="Edit" class="btn btn-warning"><i class="fa-solid fa-eye"></i></a>
                                 @if ($item->status == 1)
-                                <a href="{{route('delete.category',$item->id)}}" title="InActive" id="delete" class="btn btn-danger"><i class="fa-regular fa-thumbs-down"></i></a>
+                                <a href="{{route('product.inactive',$item->id)}}" title="InActive" class="btn btn-danger"><i class="fa-regular fa-thumbs-down"></i></a>
                                 @else
-                                <a href="{{route('delete.category',$item->id)}}" title="InActive" id="delete" class="btn btn-primary"><i class="fa-regular fa-thumbs-up"></i></a>
+                                <a href="{{route('product.active',$item->id)}}" title="Active" class="btn btn-primary"><i class="fa-regular fa-thumbs-up"></i></a>
                                 @endif
                             </td>
                         </tr>

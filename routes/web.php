@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,7 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::post('update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
 });
 
-Route::get('admin/login', [AdminController::class, 'AdminLogin']);
+Route::get('admin/login', [AdminController::class, 'AdminLogin'])->middleware(RedirectIfAuthenticated::class);
 
 // ==========Vendor Mangements =========
 Route::middleware(['auth','role:admin'])->controller(AdminController::class)->group(function (){
@@ -104,10 +105,12 @@ Route::middleware(['auth','role:admin'])->controller(ProductController::class)->
     Route::post('update/product/{id}','UpdateProduct')->name('update.product');
     Route::post('update/product/multiimage/{id}','UpdateProductMultiImage')->name('update.product.multiimage');
     Route::get('product/multiimage/delete/{id}','ProductMultiImageDelete')->name('product.multiimage.delete');
-    // Route::get('delete/subcategory/{id}','DeleteSubCatgory')->name('delete.subcategory');
+    Route::get('product/inactive/{id}','ProductInactive')->name('product.inactive');
+    Route::get('product/active/{id}','ProductActive')->name('product.active');
+    Route::get('product/delete/{id}','ProductDelete')->name('product.delete');
 });
 //========Vendor Login Register========
-Route::get('vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
+Route::get('vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login')->middleware(RedirectIfAuthenticated::class);
 Route::get('become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
 Route::post('vendor/register', [VendorController::class, 'VendorRegister'])->name('vendor.register');
 //========Vendor Dashboard========
