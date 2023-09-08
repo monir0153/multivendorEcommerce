@@ -1,5 +1,5 @@
-@extends('admin.dashboard')
-@section('admin')
+@extends('vendor.dashboard')
+@section('vendor')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <div class="page-content">
 
@@ -11,7 +11,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Vendor Product</li>
                 </ol>
             </nav>
         </div>
@@ -23,7 +23,7 @@
       <div class="card-body p-4">
           <h5 class="card-title">Add New Product</h5>
           <hr>
-          <form action="{{route('store.product')}}" id="myForm" method="POST" enctype="multipart/form-data">
+          <form action="{{route('vendor.store.product')}}" id="myForm" method="POST" enctype="multipart/form-data">
             @csrf
            <div class="form-body mt-4">
             <div class="row">
@@ -73,7 +73,7 @@
                         <input type="text" class="form-control" name="selling_price" placeholder="00.00">
                       </div>
                       <div class="col-md-6">
-                        <label for="inputCompareatprice" class="form-label">Discount (0-100%)</label>
+                        <label for="inputCompareatprice" class="form-label">Discount (0-100%) </label>
                         <input type="text" class="form-control" name="discount_price" placeholder="00.00">
                       </div>
                       <div class="form-group col-md-6">
@@ -110,15 +110,7 @@
 
                           </select>
                       </div>
-                      <div class="col-12">
-                        <label for="inputCollection" class="form-label">Select Vendor</label>
-                        <select class="form-select" name="vendor_id" >
-                            <option></option>
-                            @foreach ($activevendor as $vendor)
-                            <option value="{{$vendor->id}}">{{$vendor->name}}</option>
-                            @endforeach
-                          </select>
-                      </div>
+
                         <div class="col-12">
                           <div class="row g-3">
                             <div class="col-md-6">
@@ -292,7 +284,7 @@
           const category_id = $(this).val();
           if(category_id){
             $.ajax({
-              url : "{{ url('subcategory/ajax')}}/"+category_id,
+              url : "{{ url('vendor/subcategory/ajax')}}/"+category_id,
               type: 'GET',
               dataType: 'json',
               success: function(data){

@@ -57,7 +57,7 @@
                           <div class="form-group mb-3">
                             <label for="inputProductDescription" class="form-label">Product Thumbnail</label>
                             <input class="form-control" name="product_thumbnail" type="file" id="formFile" onchange="mainThumUrl(this)">
-                            <img src="{{asset($products->product_thumbnail)}}" class="pt-3 pb-3" id="mainThumb" width="200px">
+                            <img src="{{asset($products->product_thumbnail)}}" class="pt-3 pb-3" id="mainThumb" width="200px" height="200px">
                           </div>
                      </div>
                 </div>
@@ -69,7 +69,7 @@
                         <input type="text" class="form-control" name="selling_price" value="{{$products->selling_price}}">
                       </div>
                       <div class="col-md-6">
-                        <label for="inputCompareatprice" class="form-label">Discount </label>
+                        <label for="inputCompareatprice" class="form-label">Discount (0-100%)</label>
                         <input type="text" class="form-control" name="discount_price" value="{{$products->discount_price}}">
                       </div>
                       <div class="form-group col-md-6">
