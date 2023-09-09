@@ -27,6 +27,7 @@
     {{-- Toaster cdn --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 	<title>Rukada - Responsive Bootstrap 5 Admin Template</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js']);
 </head>
 
 <body>
