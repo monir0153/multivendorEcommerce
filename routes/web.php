@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
@@ -120,7 +121,15 @@ Route::middleware(['auth','role:admin'])->controller(SliderController::class)->g
     Route::post('update/slider/{id}','UpdateSlider')->name('update.slider');
     Route::get('delete/slider/{id}','DeleteSlider')->name('delete.slider');
 });
-
+// BAnner section
+Route::middleware(['auth','role:admin'])->controller(BannerController::class)->group(function (){
+    Route::get('all/banner','AllBanner')->name('all.banner');
+    Route::get('add/banner','AddBanner')->name('add.banner');
+    Route::post('store/banner','StoreBanner')->name('store.banner');
+    Route::get('edit/banner/{id}','EditBanner')->name('edit.banner');
+    Route::post('update/banner/{id}','UpdateBanner')->name('update.banner');
+    Route::get('delete/banner/{id}','DeleteBanner')->name('delete.banner');
+});
 
 
 
