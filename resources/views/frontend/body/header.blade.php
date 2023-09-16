@@ -1,3 +1,9 @@
+@php
+    $categories = App\Models\Category::orderBy('category_name', 'ASC')->get();
+    $category = App\Models\Category::orderBy('category_name', 'ASC')->limit(6)->get();
+
+@endphp
+
 <header class="header-area header-style-1 header-height-2">
     <div class="mobile-promotion">
         <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
@@ -218,38 +224,20 @@
                         <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
                             <div class="d-flex categori-dropdown-inner">
                                 <ul>
+                                    @foreach ($categories as $item)
                                     <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-1.svg')}}" alt="" />Milks and Dairies</a>
+                                        <a href="shop-grid-right.html"> <img src="{{asset($item->category_image)}}" alt="" />{{$item->category_name}}</a>
                                     </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-2.svg')}}" alt="" />Clothing & beauty</a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-3.svg')}}" alt="" />Pet Foods & Toy</a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-4.svg')}}" alt="" />Baking material</a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-5.svg')}}" alt="" />Fresh Fruit</a>
-                                    </li>
+                                    @endforeach
+
                                 </ul>
                                 <ul class="end">
+                                    @foreach ($categories as $item)
                                     <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-6.svg')}}" alt="" />Wines & Drinks</a>
+                                        <a href="shop-grid-right.html"> <img src="{{asset($item->category_image)}}" alt="" />{{$item->category_name}}</a>
                                     </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-7.svg')}}" alt="" />Fresh Seafood</a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-8.svg')}}" alt="" />Fast food</a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-9.svg')}}" alt="" />Vegetables</a>
-                                    </li>
-                                    <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('frontend/assets/imgs/theme/icons/category-10.svg')}}" alt="" />Bread and Juice</a>
-                                    </li>
+                                    @endforeach
+
                                 </ul>
                             </div>
                             <div class="more_slide_open" style="display: none">
@@ -286,7 +274,7 @@
                                 <li>
                                     <a href="page-about.html">About</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="shop-grid-right.html">Shop <i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
@@ -320,19 +308,21 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> --}}
+                                @foreach ($category as $menu)
                                 <li>
-                                    <a href="#">Vendors <i class="fi-rs-angle-down"></i></a>
+                                    <a href="#">{{$menu->category_name}} <i class="fi-rs-angle-down"></i></a>
+                                    @php
+                                        $subcategory = App\Models\SubCategory::where('category_id',$menu->id)->orderBy('subcategory_name', 'ASC')->get();
+                                    @endphp
                                     <ul class="sub-menu">
-                                        <li><a href="vendors-grid.html">Vendors Grid</a></li>
-                                        <li><a href="vendors-list.html">Vendors List</a></li>
-                                        <li><a href="vendor-details-1.html">Vendor Details 01</a></li>
-                                        <li><a href="vendor-details-2.html">Vendor Details 02</a></li>
-                                        <li><a href="vendor-dashboard.html">Vendor Dashboard</a></li>
-                                        <li><a href="vendor-guide.html">Vendor Guide</a></li>
+                                        @foreach ($subcategory as $subcat)
+                                        <li><a href="vendors-grid.html">{{$subcat->subcategory_name}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li class="position-static">
+                                @endforeach
+                                {{-- <li class="position-static">
                                     <a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
                                     <ul class="mega-menu">
                                         <li class="sub-mega-menu sub-mega-menu-width-22">
@@ -426,7 +416,7 @@
                                         <li><a href="page-terms.html">Terms of Service</a></li>
                                         <li><a href="page-404.html">404 Page</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li>
                                     <a href="page-contact.html">Contact</a>
                                 </li>
